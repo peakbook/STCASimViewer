@@ -1,0 +1,34 @@
+.logview{
+    resize: none;
+    margin: 0 0;
+    width: 100%;
+    height: 70%;
+    color:#ffffff;
+    background-color:#000000;
+}
+
+html, body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.fill{
+    height:9999px;
+    min-height:100%;
+    padding:10px;
+}
+
+.container {
+    min-height: 100%;
+    overflow: hidden;
+}
+.hiddenscroll{
+    overflow: hidden;
+}
+
+.pre{
+    margin: 0;
+    line-height: 125%;
+}
+

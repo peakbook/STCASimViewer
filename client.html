@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>STCA Sim Viewer</title>
+<meta charset="UTF-8">
+<script src="assets/js/jquery-1.11.2.min.js" charset="utf-8"></script>
+<script src="assets/js/d3.v3.min.js" charset="utf-8"></script>
+<script src="assets/js/bootstrap.min.js" charset="utf-8"></script>
+<link type="text/css" rel="stylesheet" href="assets/css/simple-sidebar.css">
+<link type="text/css" rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="assets/css/design.css">
+</head>
+<body style="overflow: hidden">
+<div id="wrapper">
+    <div id="sidebar-wrapper" style="overflow: hidden;">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+            <a href="#top">STCA Sim View</a>
+            </li>
+            <li>
+            <a href="#get_started">Get Started</a>
+            </li>
+            <li>
+            <a href="#transition_rule">Trasition Rule</a>
+            </li>
+            <li>
+            <a href="#cell_space">Cell Space</a>
+            </li>
+        </ul>
+        <div style="height: 30%;"></div>
+        <textarea id="text_log" placeholder="" class="logview" readonly></textarea>
+    </div>
+
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="col-lg-6" id="top">
+                    <h1> STCA Sim Viewer </h1>
+                    <div class="content fill" id="get_started">
+                        <h2> Get Started</h2>
+                        <ol type="1">
+                            <li>Run STCA Sim server.</li>
+                            <div style="">
+                                <pre>$ julia ./server.jl --p 8080 </pre>
+                            </div>
+                            <br />
+                            <li>Input host name.</li>
+                            <input type="text" class="form-control" id="text_host" placeholder="host:port" oninput="text_host_changed()" value="localhost:8080">
+                            <br />
+                            <li>Push the "Connect" button.</li>
+                            <button class="btn btn-default" id="button_toggle" onclick="btn_onclick()" disabled=true >Connect</button>
+                            <br />
+                            <br />
+                            <li>Set <a href="#transition_rule">Transition Rule</a>.</li>
+                            <li>Set <a href="#cell_space">Cell Space</a> and push the "Run" button.</li>
+                        </ol>
+                        <h2> Requirements </h2>
+                        <ul>
+                            <li>Julia version 0.3 or later with following packages.</li>
+                            <ul>
+                                <li>WebSockets.jl</li>
+                                <li>DocOpt.jl</li>
+                                <li>STCA.jl <a href="http://github.com/peakbook/STCA.jl">http://github.com/peakbook/STCA.jl</a></li>
+                            </ul>
+                            <li>Modern browser (Chrome, Firefox, ...).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="col-lg-12" id="transition_rule">
+                    <div class="content fill">
+                        <h2>Transition Rules</h2>
+                        <div>
+                            <input type="file" style="display: none;" id="load_rulefile" disabled=true accept=".tru" />
+                            <button class="btn btn-default" onclick="$('#load_rulefile').click()">Load rule from file</button>
+                        </div>
+                        <hr>
+                        <div style="">
+                            <div id="ruleview">
+                                <div id="rules">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="col-lg-12" id="cell_space">
+                    <div class="content fill">
+                        <h2>Cell Space</h2>
+                        <div>
+                            <input type="file" id="load_cellfile" style="display: none;" disabled=true accept=".csp"/>
+                            <button class="btn btn-default" onclick="$('#load_cellfile').click()">Load cellspace from file</button>
+                            <button class="btn btn-default" id="button_update_step" disabled=true onclick="update_step_onclick()">Step</button>
+                            <button class="btn btn-default" id="button_update_run" disabled=true onclick="update_run_onclick()">Run</button>
+                            <label for="update_step">Update Steps:</label>
+                            <input type="number" class="btn btn-default" id="update_step" min="1" max="50" step="1" value="1" />
+                        </div>
+                        <hr>
+                        <div style="">
+                            <div id="cellview"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+        </div>
+    </div>
+</div>
+</body>
+<script src="assets/js/main.js"></script>
+</html>
+
